@@ -1,7 +1,8 @@
-package Pages;
+package pages;
 
-import Pages.Components.*;
+import pages.components.*;
 import com.codeborne.selenide.SelenideElement;
+
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
@@ -29,7 +30,7 @@ public class RegistrationPage {
 
     ///// Actions
     public RegistrationPage openPage() {
-        open("https://demoqa.com/automation-practice-form");
+        open("automation-practice-form");
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
         return this;
@@ -87,21 +88,10 @@ public class RegistrationPage {
         submitButton.click();
         return this;
     }
-    public RegistrationPage checkFullResult(String studentName, String studentEmail, String gender,
-                                            String mobile, String dateOfBirth, String subjects,
-                                            String hobbies, String picture, String address,
-                                            String stateAndCity) {
-        finalTable.checkFullResult(studentName, studentEmail, gender,
-                mobile, dateOfBirth, subjects,
-                hobbies, picture, address,
-                stateAndCity);
+    public RegistrationPage checkResult(String key, String value) {
+        $(".table-responsive").$(byText(key)).parent()
+                .shouldHave(text(value));
         return this;
     }
-    public RegistrationPage checkShortResult(String studentName, String gender,
-                                            String mobile) {
-        finalTable.checkShortResult(studentName, gender, mobile);
-        return this;
-    }
-
 
 }

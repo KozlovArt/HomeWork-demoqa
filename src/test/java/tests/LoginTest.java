@@ -1,20 +1,15 @@
-import Pages.LoginPage;
-import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.BeforeAll;
+package tests;
+
+import pages.BaseTest;
+import pages.LoginPage;
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Selenide.sleep;
-
-public class LoginTest {
+public class LoginTest extends BaseTest {
 
     LoginPage loginPage = new LoginPage();
-    @BeforeAll
-    static void beforeAll(){
-        Configuration.pageLoadStrategy = "eager";
-        Configuration.browserSize="1020x800";
-    }
+
     @Test
-    void test1_UserLoginWithoutUserName() {
+    void testUserLoginWithoutUserName() {
         loginPage.openPage()
                  .setUserName("")
                  .setPassword("222")
@@ -22,7 +17,7 @@ public class LoginTest {
                  .checkEmptyUserName();
     }
     @Test
-    void test2_UserLoginWithoutPassword() {
+    void testUserLoginWithoutPassword() {
         loginPage.openPage()
                 .setUserName("Вася")
                 .setPassword("")
@@ -30,7 +25,7 @@ public class LoginTest {
                 .checkEmptyPassword();
     }
     @Test
-    void test3_UserLogin() {
+    void testUserLogin() {
         loginPage.openPage()
                 .setUserName("Test")
                 .setPassword("Test(111)^")
