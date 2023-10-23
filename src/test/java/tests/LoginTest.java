@@ -1,10 +1,9 @@
 package tests;
 
-import pages.BaseTest;
 import pages.LoginPage;
 import org.junit.jupiter.api.Test;
 
-public class LoginTest extends BaseTest {
+public class LoginTest extends TestBase {
 
     LoginPage loginPage = new LoginPage();
 

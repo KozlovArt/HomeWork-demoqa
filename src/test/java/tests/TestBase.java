@@ -1,11 +1,11 @@
-package pages;
+package tests;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 
-public class BaseTest {
+public class TestBase {
     @BeforeAll
     static void setUp() {
         Configuration.holdBrowserOpen = false;
