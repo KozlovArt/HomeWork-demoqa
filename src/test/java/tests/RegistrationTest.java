@@ -2,48 +2,51 @@ package tests;
 
 import pages.RegistrationPage;
 import org.junit.jupiter.api.Test;
+import utils.TestData;
 
 public class RegistrationTest extends TestBase {
     RegistrationPage registrationPage = new RegistrationPage();
     @Test
     void testDemoQAFull(){
+        TestData td = new TestData();
         registrationPage.openPage()
-                .setFirstName("Имя")
-                .setLastName("Фамилия")
-                .setEmail("test@gmail.com")
-                .setGender("Male")
-                .setUserNumber("8999555667")
-                .setDateOfBirth("01","April","1904")
-                .setSubject("English")
-                .setHobbies("Sports")
-                .setPicture("XPath.jpeg")
-                .setAddress("Адрес")
-                .setState("NCR")
-                .setCity("Gurgaon")
+                .setFirstName(td.firstName)
+                .setLastName(td.lastName)
+                .setEmail(td.email)
+                .setGender(td.gender)
+                .setUserNumber(td.userNumber)
+                .setDateOfBirth(td.day,td.month,td.year)
+                .setSubject(td.subject)
+                .setHobbies(td.hobby)
+                .setPicture(td.picture)
+                .setAddress(td.address)
+                .setState(td.state)
+                .setCity(td.city)
                 .submit();
 
-        registrationPage.checkResult("Student Name","Имя Фамилия")
-                .checkResult("Student Email","test@gmail.com")
-                .checkResult("Gender","Male")
-                .checkResult("Mobile","8999555667")
-                .checkResult("Date of Birth","01 April,1904")
-                .checkResult("Subjects","English")
-                .checkResult("Hobbies","Sports")
+        registrationPage.checkResult("Student Name",td.firstName + " " + td.lastName)
+                .checkResult("Student Email",td.email)
+                .checkResult("Gender",td.gender)
+                .checkResult("Mobile",td.userNumber)
+                .checkResult("Date of Birth",td.day + " " + td.month + "," + td.year)
+                .checkResult("Subjects",td.subject)
+                .checkResult("Hobbies",td.hobby)
                 .checkResult("Picture","XPath.jpeg")
-                .checkResult("Address","Адрес")
-                .checkResult("State and City","NCR Gurgaon");
+                .checkResult("Address",td.address)
+                .checkResult("State and City",td.state + " " + td.city);
     }
     @Test
     void testDemoQAShort(){
-        registrationPage.openPage()
-                .setFirstName("Имя")
-                .setLastName("Фамилия")
-                .setGender("Male")
-                .setUserNumber("8999555667")
+        TestData td = new TestData();
+       registrationPage.openPage()
+                .setFirstName(td.firstName)
+                .setLastName(td.lastName)
+                .setGender(td.gender)
+                .setUserNumber(td.userNumber)
                 .submit();
 
-        registrationPage.checkResult("Student Name","Имя Фамилия")
-                .checkResult("Gender","Male")
-                .checkResult("Mobile","8999555667");
+        registrationPage.checkResult("Student Name",td.firstName + " " + td.lastName)
+                .checkResult("Gender",td.gender)
+                .checkResult("Mobile",td.userNumber);
     }
 }
