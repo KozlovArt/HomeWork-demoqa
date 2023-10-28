@@ -1,52 +1,69 @@
 package tests;
 
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.*;
 import pages.RegistrationPage;
-import org.junit.jupiter.api.Test;
-import utils.TestData;
+
+import java.util.List;
+import java.util.stream.Stream;
+
 
 public class RegistrationTest extends TestBase {
     RegistrationPage registrationPage = new RegistrationPage();
-    @Test
-    void testDemoQAFull(){
-        TestData td = new TestData();
-        registrationPage.openPage()
-                .setFirstName(td.firstName)
-                .setLastName(td.lastName)
-                .setEmail(td.email)
-                .setGender(td.gender)
-                .setUserNumber(td.userNumber)
-                .setDateOfBirth(td.day,td.month,td.year)
-                .setSubject(td.subject)
-                .setHobbies(td.hobby)
-                .setPicture(td.picture)
-                .setAddress(td.address)
-                .setState(td.state)
-                .setCity(td.city)
-                .submit();
+    @CsvSource({"Vasia, Petrov, Male, 1234567890",
+                "Petr, Ivanov, Male, 9876543210"})
+    @ParameterizedTest(name = "Registration for {0} {1} {2} {3}")
+    @Tag("One")
+    void testDemoQAShort1(String name, String surname, String gender, String number){
 
-        registrationPage.checkResult("Student Name",td.firstName + " " + td.lastName)
-                .checkResult("Student Email",td.email)
-                .checkResult("Gender",td.gender)
-                .checkResult("Mobile",td.userNumber)
-                .checkResult("Date of Birth",td.day + " " + td.month + "," + td.year)
-                .checkResult("Subjects",td.subject)
-                .checkResult("Hobbies",td.hobby)
-                .checkResult("Picture","XPath.jpeg")
-                .checkResult("Address",td.address)
-                .checkResult("State and City",td.state + " " + td.city);
-    }
-    @Test
-    void testDemoQAShort(){
-        TestData td = new TestData();
        registrationPage.openPage()
-                .setFirstName(td.firstName)
-                .setLastName(td.lastName)
-                .setGender(td.gender)
-                .setUserNumber(td.userNumber)
+                .setFirstName(name)
+                .setLastName(surname)
+                .setGender(gender)
+                .setUserNumber(number)
                 .submit();
 
-        registrationPage.checkResult("Student Name",td.firstName + " " + td.lastName)
-                .checkResult("Gender",td.gender)
-                .checkResult("Mobile",td.userNumber);
+        registrationPage.checkResult("Student Name",name + " " + surname)
+                .checkResult("Gender",gender)
+                .checkResult("Mobile",number);
+    }
+    @CsvFileSource(resources = "/Data.csv")
+    @ParameterizedTest(name = "Registration for {0} {1} {2} {3}")
+    @Tag("Two")
+    void testDemoQAShort2(String name, String surname, String gender, String number){
+
+        registrationPage.openPage()
+                .setFirstName(name)
+                .setLastName(surname)
+                .setGender(gender)
+                .setUserNumber(number)
+                .submit();
+
+        registrationPage.checkResult("Student Name",name + " " + surname)
+                .checkResult("Gender",gender)
+                .checkResult("Mobile",number);
+    }
+    static Stream<Arguments> testDemoQAShort3() {
+        return Stream.of(
+                Arguments.of(List.of("Vasia", "Petrov", "Male", "1234567890")),
+                Arguments.of(List.of("Petr", "Ivanov", "Male", "9876543210"))
+        );
+    }
+    @MethodSource
+    @ParameterizedTest(name = "Registration for {0}")
+    @Tag("Three")
+    void testDemoQAShort3(List<String> data){
+
+        registrationPage.openPage()
+                .setFirstName(data.get(0))
+                .setLastName(data.get(1))
+                .setGender(data.get(2))
+                .setUserNumber(data.get(3))
+                .submit();
+
+        registrationPage.checkResult("Student Name",data.get(0) + " " + data.get(1))
+                .checkResult("Gender",data.get(2))
+                .checkResult("Mobile",data.get(3));
     }
 }
