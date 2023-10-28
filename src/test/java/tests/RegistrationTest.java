@@ -50,7 +50,7 @@ public class RegistrationTest extends TestBase {
                 Arguments.of(List.of("Petr", "Ivanov", "Male", "9876543210"))
         );
     }
-    @MethodSource
+    @MethodSource("testDemoQAShort3")
     @ParameterizedTest(name = "Registration for {0}")
     @Tag("Three")
     void testDemoQAShort3(List<String> data){
