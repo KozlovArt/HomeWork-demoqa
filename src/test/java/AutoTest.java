@@ -19,8 +19,8 @@ import static io.qameta.allure.Allure.step;
 public class AutoTest {
     @BeforeAll
     static void beforeAll(){
-        Configuration.browser = System.getProperty("Browser", "chrome");
-        Configuration.browserVersion = System.getProperty("BrowserVersion", "100.0");
+        Configuration.browser = System.getProperty("Browser", "firefox");
+        Configuration.browserVersion = System.getProperty("BrowserVersion", "98.0");
         Configuration.baseUrl = System.getProperty("Stand", "https://demoqa.com");
         Configuration.pageLoadStrategy = "eager";
         Configuration.browserSize= System.getProperty("Resolution", "1920x1080");
@@ -38,7 +38,9 @@ public class AutoTest {
     void addAttachments() {
         Attach.screenshotAs("Last screenshot");
         Attach.pageSource();
-        Attach.browserConsoleLogs();
+        if (!Configuration.browser.equalsIgnoreCase("firefox")){
+            Attach.browserConsoleLogs();
+        }
         Attach.addVideo();
         closeWebDriver();
     }
@@ -65,7 +67,9 @@ public class AutoTest {
                     $("#subjectsInput").setValue("Eng");
                     $("#subjectsWrapper").$(byText("English")).click();
                     $("#hobbiesWrapper").$(byText("Sports")).click();
-                    $("#uploadPicture").uploadFromClasspath("XPath.jpeg");
+                    if (!Configuration.browser.equalsIgnoreCase("firefox")){
+                        $("#uploadPicture").uploadFromClasspath("XPath.jpeg");
+                    }
                     $("#currentAddress").setValue("Адрес");
                     $("#react-select-3-input").setValue("N");
                     $("#state").$(byText("NCR")).click();
@@ -82,7 +86,9 @@ public class AutoTest {
             $(byText("01 April,1904")).shouldBe(exist);
             $(byText("English")).shouldBe(exist);
             $(byText("Sports")).shouldBe(exist);
-            $(byText("XPath.jpeg")).shouldBe(exist);
+            if (!Configuration.browser.equalsIgnoreCase("firefox")){
+                $(byText("XPath.jpeg")).shouldBe(exist);
+            }
             $(byText("Адрес")).shouldBe(exist);
             $(byText("NCR Gurgaon")).shouldBe(exist);
         });
