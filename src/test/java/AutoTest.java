@@ -19,9 +19,11 @@ import static io.qameta.allure.Allure.step;
 public class AutoTest {
     @BeforeAll
     static void beforeAll(){
+        Configuration.browser = System.getProperty("Browser", "chrome");
+        Configuration.baseUrl = System.getProperty("Stand", "https://demoqa.com");
         Configuration.pageLoadStrategy = "eager";
-        Configuration.browserSize="1020x800";
-        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
+        Configuration.browserSize= System.getProperty("Resolution", "1920x1080");
+        Configuration.remote = System.getProperty("Host", "https://user1:1234@selenoid.autotests.cloud/wd/hub");
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
@@ -45,7 +47,7 @@ public class AutoTest {
     void testDemoQA(){
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
         step("Open form", () -> {
-                    open("https://demoqa.com/automation-practice-form");
+                    open("/automation-practice-form");
                     executeJavaScript("$('#fixedban').remove()");
                     executeJavaScript("$('footer').remove()");
                 });
