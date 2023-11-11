@@ -20,6 +20,7 @@ public class AutoTest {
     @BeforeAll
     static void beforeAll(){
         Configuration.browser = System.getProperty("Browser", "chrome");
+        Configuration.browserVersion = System.getProperty("BrowserVersion", "100.0");
         Configuration.baseUrl = System.getProperty("Stand", "https://demoqa.com");
         Configuration.pageLoadStrategy = "eager";
         Configuration.browserSize= System.getProperty("Resolution", "1920x1080");
