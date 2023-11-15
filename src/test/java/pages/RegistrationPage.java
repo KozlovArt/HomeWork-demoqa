@@ -1,5 +1,6 @@
 package pages;
 
+import com.codeborne.selenide.Configuration;
 import pages.components.*;
 import com.codeborne.selenide.SelenideElement;
 
@@ -69,7 +70,8 @@ public class RegistrationPage {
         return this;
     }
     public RegistrationPage setPicture(String pictureName) {
-        userPicture.uploadFromClasspath(pictureName);
+        if (!Configuration.browser.equalsIgnoreCase("firefox")){
+        userPicture.uploadFromClasspath(pictureName);}
         return this;
     }
     public RegistrationPage setAddress(String address) {

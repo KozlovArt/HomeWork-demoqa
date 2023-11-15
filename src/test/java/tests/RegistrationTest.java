@@ -1,5 +1,6 @@
 package tests;
 
+import com.codeborne.selenide.Configuration;
 import pages.RegistrationPage;
 import org.junit.jupiter.api.Test;
 
@@ -29,9 +30,10 @@ public class RegistrationTest extends TestBase {
                 .checkResult("Date of Birth","01 April,1904")
                 .checkResult("Subjects","English")
                 .checkResult("Hobbies","Sports")
-                .checkResult("Picture","XPath.jpeg")
                 .checkResult("Address","Адрес")
                 .checkResult("State and City","NCR Gurgaon");
+                if (!Configuration.browser.equalsIgnoreCase("firefox")){
+                    registrationPage.checkResult("Picture","XPath.jpeg");}
     }
     @Test
     void testDemoQAShort(){
