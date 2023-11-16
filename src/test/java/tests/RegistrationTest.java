@@ -32,8 +32,9 @@ public class RegistrationTest extends TestBase {
                 .checkResult("Hobbies","Sports")
                 .checkResult("Address","Адрес")
                 .checkResult("State and City","NCR Gurgaon");
-                if (!Configuration.browser.equalsIgnoreCase("firefox")){
-                    registrationPage.checkResult("Picture","XPath.jpeg");}
+        if (!Configuration.browser.equalsIgnoreCase("firefox")) {
+            registrationPage.checkResult("Picture", "XPath.jpeg");
+        }
     }
     @Test
     void testDemoQAShort(){

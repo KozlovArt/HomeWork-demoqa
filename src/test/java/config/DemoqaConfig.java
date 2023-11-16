@@ -6,9 +6,8 @@ import org.aeonbits.owner.Config;
         "classpath:${environment}.properties",
 })
 public interface DemoqaConfig extends Config {
-    @Key("stand")
-    @DefaultValue("local")
-    String getStand();
+    @Key("remoteUrl")
+    String getRemoteUrl();
 
     @Key("browser")
     @DefaultValue("chrome")
@@ -17,4 +16,8 @@ public interface DemoqaConfig extends Config {
     @Key("browserVersion")
     @DefaultValue("119")
     String getBrowserVersion();
+
+    @Key("baseUrl")
+    @DefaultValue("https://demoqa.com/")
+    String getBaseUrl();
 }

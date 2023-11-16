@@ -12,13 +12,11 @@ public class TestBase {
 
     @BeforeAll
     static void setUp() {
-        System.setProperty("environment", "local");
         DemoqaConfig config = ConfigFactory.create(DemoqaConfig.class, System.getProperties());
         Configuration.browser = config.getBrowser();
         Configuration.browserVersion = config.getBrowserVersion();
-        if (config.getStand().equalsIgnoreCase("remote")){
-        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";}
-        Configuration.baseUrl = "https://demoqa.com/";
+        Configuration.remote = config.getRemoteUrl();
+        Configuration.baseUrl = config.getBaseUrl();
         Configuration.holdBrowserOpen = false;
         Configuration.pageLoadStrategy = "eager";
     }

@@ -71,7 +71,8 @@ public class RegistrationPage {
     }
     public RegistrationPage setPicture(String pictureName) {
         if (!Configuration.browser.equalsIgnoreCase("firefox")){
-        userPicture.uploadFromClasspath(pictureName);}
+        userPicture.uploadFromClasspath(pictureName);
+        }
         return this;
     }
     public RegistrationPage setAddress(String address) {
